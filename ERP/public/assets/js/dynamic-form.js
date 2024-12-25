@@ -1,44 +1,37 @@
 $(document).ready(function () {
-    const dynamicForm = $("#dynamic-form");
+    const dynamicForm = $("#dynamic-form")
 
-    $(this).find(".btn-hapus").hide();
+    $(this).find(".btn-hapus").hide()
 
-    // Saat tombol Tambah diklik
     $(document).on("click", ".btn-tambah", function (e) {
-        e.preventDefault();
+        e.preventDefault()
 
-        // Kloning baris pertama
-        const newRow = $("#dynamic-form .form-group:first").clone();
-        newRow.find("input, select").val(""); // Reset nilai input
-        newRow.find(".unitText").text("-"); // Reset teks
-        dynamicForm.append(newRow); // Tambahkan baris baru ke form
+        const newRow = $("#dynamic-form .form-group:first").clone()
+        newRow.find("input, select").val("")
+        newRow.find(".unitText").text("-")
+        dynamicForm.append(newRow)
 
-        updateButtons(); // Perbarui tampilan tombol
-    });
+        updateButtons()
+    })
 
-    // Saat tombol Hapus diklik
     $(document).on("click", ".btn-hapus", function (e) {
-        e.preventDefault();
+        e.preventDefault()
 
-        // Hapus baris
-        $(this).closest(".form-group").remove();
+        $(this).closest(".form-group").remove()
 
-        updateButtons(); // Perbarui tampilan tombol
-    });
+        updateButtons()
+    })
 
-    // Fungsi untuk memperbarui tombol Tambah dan Hapus
     function updateButtons() {
-        const rows = $("#dynamic-form .form-group");
+        const rows = $("#dynamic-form .form-group")
 
         rows.each(function (index) {
-            const isLastRow = index === rows.length - 1;
+            const isLastRow = index === rows.length - 1
 
-            // Tampilkan tombol Tambah hanya pada baris terakhir
-            $(this).find(".btn-tambah").toggle(isLastRow);
+            $(this).find(".btn-tambah").toggle(isLastRow)
 
-            // Tampilkan tombol Hapus di semua baris
-            $(this).find(".btn-hapus").toggle(rows.length > 1);;
-        });
+            $(this).find(".btn-hapus").toggle(rows.length > 1)
+        })
     }
 
     $(document).on("input", ".qtyOrder, .priceOrder", function () {
@@ -50,6 +43,14 @@ $(document).ready(function () {
         row.find(".totalOrder").val(result)
     })
 
-    // Inisialisasi tombol saat pertama kali halaman dimuat
-    updateButtons();
-});
+    $(document).on("input", ".qtySold, .priceSale", function () {
+        const row = $(this).closest(".form-group")
+        const qtySold = row.find(".qtySold").val()
+        const priceSale = row.find(".priceSale").val()
+
+        const result = qtySold * priceSale
+        row.find(".totalSold").val(result)
+    })
+
+    updateButtons()
+})

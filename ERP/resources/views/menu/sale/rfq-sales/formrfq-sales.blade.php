@@ -1,4 +1,4 @@
-@extends('template.template') @section('title', 'Form Request For Quotation Order') @section('content')
+@extends('template.template') @section('title', 'Form Request For Quotation Sale') @section('content')
 
 <section class="content">
     <div class="container-fluid">
@@ -10,10 +10,11 @@
                         <a href="{{ route('dashboard') }}">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('rfq') }}">Data RFQ Order</a>
+                        <a href="{{ route('rfq-sales') }}">Data RFQ Sale</a>
+                        {{-- <a href="{{ route('rfq-sales') }}">{{ request()->route()->getName() }}</a> --}}
                     </li>
                     <li class="breadcrumb-item">
-                        {{ request()->routeIs('create-rfq') ? 'Create RFQ Order' : (request()->routeIs('edit-rfq') ? 'Update RFQ Order' : 'Preview RFQ Order') }}
+                        {{ request()->routeIs('create-rfq-sales') ? 'Create RFQ Sale' : (request()->routeIs('edit-rfq-sales') ? 'Update RFQ Sale' : 'Preview RFQ Sale') }}
                     </li>
                 </ol>
             </div>
@@ -22,67 +23,67 @@
         <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">
-                    {{ request()->routeIs('create-rfq') ? 'Create RFQ Order' : $rfq->rfqCode }}
+                    {{ request()->routeIs('create-rfq-sales') ? 'Create RFQ Sale' : $rfqSale->rfqSaleCode }}
                 </h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form
-                action="{{ request()->routeIs('create-rfq')
-                    ? route('insert-rfq')
-                    : (request()->routeIs('edit-rfq')
-                        ? '/rfq/update-rfq' . '?rfqCode=' . $rfq->rfqCode
-                        : (request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Request'
-                            ? '/rfq/validate-rfq' . '?rfqCode=' . $rfq->rfqCode
-                            : '/rfq/confirm-rfq' . '?rfqCode=' . $rfq->rfqCode)) }}"
+                action="{{ request()->routeIs('create-rfq-sales')
+                    ? route('insert-rfq-sales')
+                    : (request()->routeIs('edit-rfq-sales')
+                        ? '/rfq-sales/update-rfq-sales' . '?rfqSaleCode=' . $rfqSale->rfqSaleCode
+                        : (request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Request'
+                            ? '/rfq-sales/deliver-rfq-sales' . '?rfqSaleCode=' . $rfqSale->rfqSaleCode
+                            : '/rfq-sales/confirm-rfq-sales' . '?rfqSaleCode=' . $rfqSale->rfqSaleCode)) }}"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="vendorID">Vendor</label>
-                        <select class="form-control" name="vendorID" id="vendorID"
-                            {{ request()->routeIs('preview-rfq') ? 'readonly' : '' }}>
+                        <label for="customerID">Customer</label>
+                        <select class="form-control" name="customerID" id="customerID"
+                            {{ request()->routeIs('preview-rfq-sales-sales') ? 'readonly' : '' }}>
                             <option value="" hidden>
-                                -- Choose Item --
+                                -- Choose Customer --
                             </option>
-                            @foreach ($vendors as $row)
+                            @foreach ($customers as $row)
                                 <option value="{{ $row->id }}"
-                                    {{ request()->routeIs('create-rfq') ? '' : ($row->id == $rfq->vendorID ? 'selected' : '') }}>
-                                    {{ $row->name }}</option>
+                                    {{ request()->routeIs('create-rfq-sales') ? '' : ($row->id == $rfqSale->customerID ? 'selected' : '') }}>
+                                    {{ $row->customerName }}</option>
                             @endforeach
                         </select>
-                        @error('vendorID')
+                        @error('customerID')
                             <div class="mt-1">
                                 <span class="text-danger">{{ $message }}</span>
                             </div>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="orderDate">Order Date</label>
-                        <input type="date" class="form-control" name="orderDate" id="orderDate"
-                            value="{{ request()->routeIs('create-rfq') ? $date : $rfq->orderDate }}"
-                            {{ request()->routeIs('preview-rfq') ? 'readonly' : '' }} />
-                        @error('orderDate')
+                        <label for="saleDate">Sale Date</label>
+                        <input type="date" class="form-control" name="saleDate" id="saleDate"
+                            value="{{ request()->routeIs('create-rfq-sales') ? $date : $rfqSale->saleDate }}"
+                            {{ request()->routeIs('preview-rfq-sales-sales') ? 'readonly' : '' }} />
+                        @error('saleDate')
                             <div class="mt-1">
                                 <span class="text-danger">{{ $message }}</span>
                             </div>
                         @enderror
                     </div>
                     <div id="dynamic-form">
-                        @if (request()->routeIs('create-rfq'))
+                        @if (request()->routeIs('create-rfq-sales'))
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label>Material</label>
-                                        <select name="materialID[]" class="form-control materialID">
-                                            <option value="" hidden>-- Select Material --</option>
-                                            @foreach ($materials as $row)
+                                        <label>Product</label>
+                                        <select name="productID[]" class="form-control productID">
+                                            <option value="" hidden>-- Select Product --</option>
+                                            @foreach ($products as $row)
                                                 <option data-unit="{{ $row->unit }}" value="{{ $row->id }}">
-                                                    [{{ $row->materialCode }}] {{ $row->materialName }}
+                                                    [{{ $row->productCode }}] {{ $row->productName }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('materialID')
+                                        @error('productID')
                                             <div class="mt-1">
                                                 <span class="text-danger">{{ $message }}</span>
                                             </div>
@@ -90,12 +91,9 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <label>Qty</label>
-                                        <div class="input-group">
-                                            <input type="number" name="qtyOrder[]" class="form-control qtyOrder"
-                                                placeholder="0">
-                                            <span class="input-group-text unitText">-</span>
-                                        </div>
-                                        @error('qtyOrder')
+                                        <input type="number" name="qtySold[]" class="form-control qtySold"
+                                            placeholder="0">
+                                        @error('qtySold')
                                             <div class="mt-1">
                                                 <span class="text-danger">{{ $message }}</span>
                                             </div>
@@ -103,9 +101,9 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <label>Price</label>
-                                        <input type="number" name="priceOrder[]" class="form-control priceOrder"
+                                        <input type="number" name="priceSale[]" class="form-control priceSale"
                                             placeholder="0">
-                                        @error('priceOrder')
+                                        @error('priceSale')
                                             <div class="mt-1">
                                                 <span class="text-danger">{{ $message }}</span>
                                             </div>
@@ -113,9 +111,9 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <label>Total</label>
-                                        <input type="number" name="totalOrder[]" class="form-control totalOrder"
+                                        <input type="number" name="totalSold[]" class="form-control totalSold"
                                             placeholder="0" readonly>
-                                        @error('totalOrder')
+                                        @error('totalSold')
                                             <div class="mt-1">
                                                 <span class="text-danger">{{ $message }}</span>
                                             </div>
@@ -128,23 +126,23 @@
                                 </div>
                             </div>
                         @else
-                            @foreach ($rfqs as $order)
+                            @foreach ($rfqSales as $sale)
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <label>Material</label>
-                                            <select name="materialID[]" class="form-control materialID"
-                                                {{ request()->routeIs('preview-rfq') ? 'readonly' : '' }}>
-                                                <option value="" hidden>-- Select Material --</option>
-                                                @foreach ($materials as $row)
+                                            <label>Product</label>
+                                            <select name="productID[]" class="form-control productID"
+                                                {{ request()->routeIs('preview-rfq-sales') ? 'readonly' : '' }}>
+                                                <option value="" hidden>-- Select Product --</option>
+                                                @foreach ($products as $row)
                                                     <option data-unit="{{ $row->unit }}"
                                                         value="{{ $row->id }}"
-                                                        {{ $row->id == $order->materialID ? 'selected' : '' }}>
-                                                        [{{ $row->materialCode }}] {{ $row->materialName }}
+                                                        {{ $row->id == $sale->productID ? 'selected' : '' }}>
+                                                        [{{ $row->productCode }}] {{ $row->productName }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            @error('materialID')
+                                            @error('productID')
                                                 <div class="mt-1">
                                                     <span class="text-danger">{{ $message }}</span>
                                                 </div>
@@ -152,13 +150,10 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <label>Qty</label>
-                                            <div class="input-group">
-                                                <input type="number" name="qtyOrder[]" class="form-control qtyOrder"
-                                                    placeholder="0" value="{{ $order->qtyOrder }}"
-                                                    {{ request()->routeIs('preview-rfq') ? 'readonly' : '' }}>
-                                                <span class="input-group-text unitText">-</span>
-                                            </div>
-                                            @error('qtyOrder')
+                                            <input type="number" name="qtySold[]" class="form-control qtySold"
+                                                placeholder="0" value="{{ $sale->qtySold }}"
+                                                {{ request()->routeIs('preview-rfq-sales') ? 'readonly' : '' }}>
+                                            @error('qtySold')
                                                 <div class="mt-1">
                                                     <span class="text-danger">{{ $message }}</span>
                                                 </div>
@@ -166,10 +161,10 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <label>Price</label>
-                                            <input type="number" name="priceOrder[]" class="form-control priceOrder"
-                                                placeholder="0" value="{{ $order->priceOrder }}"
-                                                {{ request()->routeIs('preview-rfq') ? 'readonly' : '' }}>
-                                            @error('priceOrder')
+                                            <input type="number" name="priceSale[]" class="form-control priceSale"
+                                                placeholder="0" value="{{ $sale->priceSale }}"
+                                                {{ request()->routeIs('preview-rfq-sales') ? 'readonly' : '' }}>
+                                            @error('priceSale')
                                                 <div class="mt-1">
                                                     <span class="text-danger">{{ $message }}</span>
                                                 </div>
@@ -177,30 +172,31 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <label>Total</label>
-                                            <input type="number" name="totalOrder[]" class="form-control totalOrder"
-                                                placeholder="0" value="{{ $order->totalOrder }}"
-                                                readonly>
-                                            @error('totalOrder')
+                                            <input type="number" name="totalSold[]" class="form-control totalSold"
+                                                placeholder="0" value="{{ $sale->totalSold }}" readonly>
+                                            @error('totalSold')
                                                 <div class="mt-1">
                                                     <span class="text-danger">{{ $message }}</span>
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="col-sm-2 align-self-end"
-                                            {{ request()->routeIs('preview-rfq') ? 'hidden' : '' }}>
+                                            {{ request()->routeIs('preview-rfq-sales') ? 'hidden' : '' }}>
                                             <a class="btn btn-success btn-tambah"><i class="fa fa-plus"></i></a>
                                             <a class="btn btn-danger btn-hapus"><i class="fa fa-times"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
-                            @if (request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Purchase Order' || $rfq->rfqStatus == 'Done' )
+                            @if (
+                                (request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Deliver') ||
+                                    $rfqSale->rfqSaleStatus == 'Done')
                                 <span class="text-bold text-lg">Total: </span>
                                 <span class="text-bold text-lg">
-                                    Rp{{ $rfqs->sum('totalOrder') }}
+                                    Rp{{ $rfqSales->sum('totalSold') }}
                                     <span
-                                        class="ml-2 p-1 px-3 text-md rounded {{ request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Done' ? 'bg-success' : 'bg-danger' }}">
-                                        {{ request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Done' ? 'Paid' : 'Unpaid' }}
+                                        class="ml-2 p-1 px-3 text-md rounded {{ request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Done' ? 'bg-success' : 'bg-danger' }}">
+                                        {{ request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Done' ? 'Paid' : 'Unpaid' }}
                                     </span>
                                 </span>
                             @endif
@@ -208,14 +204,14 @@
                     </div>
                     <div class="card-footer bg-white float-right">
                         <button type="submit"
-                            class="{{ request()->routeIs('create-rfq') || request()->routeIs('edit-rfq') || (request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Request') ? 'btn btn-primary' : 'btn btn-default' }}"
-                            {{ request()->routeIs('create-rfq') || request()->routeIs('edit-rfq') || (request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Request') ? '' : 'disabled' }}>
-                            {{ request()->routeIs('preview-rfq') ? 'Validate' : 'Submit' }}
+                            class="{{ request()->routeIs('create-rfq-sales') || request()->routeIs('edit-rfq-sales') || (request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Request') ? 'btn btn-primary' : 'btn btn-default' }}"
+                            {{ request()->routeIs('create-rfq-sales') || request()->routeIs('edit-rfq-sales') || (request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Request') ? '' : 'disabled' }}>
+                            {{ request()->routeIs('preview-rfq-sales') ? 'Deliver' : 'Submit' }}
                         </button>
-                        <button type="{{ request()->routeIs('preview-rfq') ? 'submit' : 'reset' }}"
-                            class="{{ request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Purchase Order' ? 'btn btn-primary' : 'btn btn-default' }}"
-                            {{ request()->routeIs('create-rfq') || request()->routeIs('edit-rfq') || (request()->routeIs('preview-rfq') && $rfq->rfqStatus == 'Purchase Order') ? '' : 'disabled' }}>
-                            {{ request()->routeIs('preview-rfq') ? 'Confirm' : 'Cancel' }}
+                        <button type="{{ request()->routeIs('preview-rfq-sales') ? 'submit' : 'reset' }}"
+                            class="{{ request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Deliver' ? 'btn btn-primary' : 'btn btn-default' }}"
+                            {{ request()->routeIs('create-rfq-sales') || request()->routeIs('edit-rfq-sales') || (request()->routeIs('preview-rfq-sales') && $rfqSale->rfqSaleStatus == 'Deliver') ? '' : 'disabled' }}>
+                            {{ request()->routeIs('preview-rfq-sales') ? 'Register Payment' : 'Cancel' }}
                         </button>
                     </div>
                 </div>

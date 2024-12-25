@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BomsController;
 use App\Http\Controllers\RfqsController;
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\RfqSalesController;
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\MaterialsController;
 use App\Http\Controllers\ProductionsController;
 
@@ -19,9 +22,7 @@ use App\Http\Controllers\ProductionsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('dashboard');
+Route::get('/', [Controller::class, 'index'])->name('dashboard');
 
 Route::get('/product', [ProductsController::class, 'index'])->name('product');
 
@@ -64,13 +65,13 @@ Route::get('/vendor/delete-vendor/{id}', [VendorsController::class, 'delete'])->
 
 Route::get('/rfq', [RfqsController::class, 'index'])->name('rfq');
 
-Route::get('/create-rfq', [RfqsController::class, 'create'])->name('create-rfq');
+Route::get('/rfq/create-rfq', [RfqsController::class, 'create'])->name('create-rfq');
 
 Route::get('/rfq/update-rfq', [RfqsController::class , 'edit'])->name('edit-rfq');
 
 Route::get('/rfq/preview-rfq', [RfqsController::class , 'preview'])->name('preview-rfq');
 
-Route::post('/create-rfq', [RfqsController::class, 'insert'])->name('insert-rfq');
+Route::post('/rfq/create-rfq', [RfqsController::class, 'insert'])->name('insert-rfq');
 
 Route::post('/rfq/update-rfq', [RfqsController::class, 'update'])->name('update-rfq');
 
@@ -117,3 +118,35 @@ Route::post('/production/create-production', [ProductionsController::class, 'ins
 Route::post('/production/update-production', [ProductionsController::class, 'update'])->name('update-production');
 
 Route::get('/production/delete-production', [ProductionsController::class, 'delete'])->name('delete-production');
+
+
+Route::get('/customer', [CustomersController::class, 'index'])->name('customer');
+
+Route::get('/create-customer', [CustomersController::class, 'create'])->name('create-customer');
+
+Route::get('/customer/update-customer/{id}', [CustomersController::class , 'edit'])->name('edit-customer');
+
+Route::post('/create-customer', [CustomersController::class, 'insert'])->name('insert-customer');
+
+Route::post('/customer/update-customer/{id}', [CustomersController::class, 'update'])->name('update-customer');
+
+Route::get('/customer/delete-customer/{id}', [CustomersController::class, 'delete'])->name('delete-customer');
+
+
+Route::get('/rfq-sales', [RfqSalesController::class, 'index'])->name('rfq-sales');
+
+Route::get('/rfq-sales/create-rfq-sales', [RfqSalesController::class, 'create'])->name('create-rfq-sales');
+
+Route::get('/rfq-sales/update-rfq-sales', [RfqSalesController::class , 'edit'])->name('edit-rfq-sales');
+
+Route::get('/rfq-sales/preview-rfq-sales', [RfqSalesController::class , 'preview'])->name('preview-rfq-sales');
+
+Route::post('/rfq-sales/create-rfq-sales', [RfqSalesController::class, 'insert'])->name('insert-rfq-sales');
+
+Route::post('/rfq-sales/update-rfq-sales', [RfqSalesController::class, 'update'])->name('update-rfq-sales');
+
+Route::get('/rfq-sales/delete-rfq-sales', [RfqSalesController::class, 'delete'])->name('delete-rfq-sales');
+
+Route::post('/rfq-sales/deliver-rfq-sales', [RfqSalesController::class, 'delivered'])->name('deliver-rfq-sales');
+
+Route::post('/rfq-sales/confirm-rfq-sales', [RfqSalesController::class, 'confirmed'])->name('confirm-rfq-sales');

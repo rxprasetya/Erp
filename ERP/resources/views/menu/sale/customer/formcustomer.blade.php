@@ -1,4 +1,4 @@
-@extends('template.template') @section('title', 'Form Vendor') @section('content')
+@extends('template.template') @section('title', 'Form Customer') @section('content')
 
 <section class="content">
     <div class="container-fluid">
@@ -10,62 +10,63 @@
                         <a href="{{ route('dashboard') }}">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('vendor') }}">Data Vendors</a>
+                        <a href="{{ route('customer') }}">Data Customers</a>
                     </li>
                     <li class="breadcrumb-item">
-                        {{ request()->routeIs('create-vendor') ? 'Create Vendor' : 'Update Vendor' }}</li>
+                        {{ request()->routeIs('create-customer') ? 'Create Customer' : 'Update Customer' }}</li>
                 </ol>
             </div>
         </div>
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">{{ request()->routeIs('create-vendor') ? 'Create Vendor' : 'Update Vendor' }}
+                <h3 class="card-title">
+                    {{ request()->routeIs('create-customer') ? 'Create Customer' : 'Update Customer' }}
                 </h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form
-                action="{{ request()->routeIs('create-vendor') ? route('insert-vendor') : route('update-vendor', $vendors->id) }}"
+                action="{{ request()->routeIs('create-customer') ? route('insert-customer') : route('update-customer', $customers->id) }}"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name"
+                        <label for="customerName">Name</label>
+                        <input type="text" class="form-control" name="customerName" id="customerName"
                             placeholder="Enter Name"
-                            value="{{ request()->routeIs('create-vendor') ? '' : $vendors->name }}" />
-                        @error('name')
+                            value="{{ request()->routeIs('create-customer') ? '' : $customers->customerName }}" />
+                        @error('customerName')
                             <div class="mt-1">
                                 <span class="text-danger">{{ $message }}</span>
                             </div>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email"
+                        <label for="customerEmail">Email</label>
+                        <input type="email" class="form-control" name="customerEmail" id="customerEmail"
                             placeholder="Enter Email"
-                            value="{{ request()->routeIs('create-vendor') ? '' : $vendors->email }}" />
-                        @error('email')
+                            value="{{ request()->routeIs('create-customer') ? '' : $customers->customerEmail }}" />
+                        @error('customerEmail')
                             <div class="mt-1">
                                 <span class="text-danger">{{ $message }}</span>
                             </div>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="mobile">Phone</label>
-                        <input type="text" class="form-control" name="mobile" id="mobile"
+                        <label for="customerMobile">Phone</label>
+                        <input type="text" class="form-control" name="customerMobile" id="customerMobile"
                             placeholder="Enter Phone Number"
-                            value="{{ request()->routeIs('create-vendor') ? '' : $vendors->mobile }}" />
-                        @error('mobile')
+                            value="{{ request()->routeIs('create-customer') ? '' : $customers->customerMobile }}" />
+                        @error('customerMobile')
                             <div class="mt-1">
                                 <span class="text-danger">{{ $message }}</span>
                             </div>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="address">Address</label>
-                        <textarea class="form-control" name="address" id="address" rows="3" placeholder="Enter Address">{{ request()->routeIs('create-vendor') ? '' : $vendors->address }}</textarea>
+                        <label for="customerAddress">Address</label>
+                        <textarea class="form-control" name="customerAddress" id="customerAddress" rows="3" placeholder="Enter Address">{{ request()->routeIs('create-customer') ? '' : $customers->customerAddress }}</textarea>
                     </div>
                     <div class="card-footer bg-white float-right">
                         <button type="submit" class="btn btn-primary">

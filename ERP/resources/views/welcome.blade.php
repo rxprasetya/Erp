@@ -22,8 +22,8 @@
                 <!-- small box -->
                 <div class="small-box bg-primary">
                     <div class="inner">
-                        <h3>3</h3>
-                        <p>Users</p>
+                        <h3>{{ $products }}</h3>
+                        <p>Products</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -36,8 +36,8 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>3</h3>
-                        <p>Menus</p>
+                        <h3>{{ $materials }}</h3>
+                        <p>Materials</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-android-boat"></i>
@@ -50,8 +50,8 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3 class="text-white">3</h3>
-                        <p class="text-white">Orders</p>
+                        <h3 class="text-white">{{ $purchases }}</h3>
+                        <p class="text-white">Purchases</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-android-train"></i>
@@ -65,8 +65,8 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>3</h3>
-                        <p>Categories</p>
+                        <h3>{{ $sales }}</h3>
+                        <p>Sales</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-android-plane"></i>

@@ -1,14 +1,14 @@
-@extends('template.template') @section('title', 'Data Vendors') @section('content')
+@extends('template.template') @section('title', 'Data Customers') @section('content')
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <a class="btn btn-primary mb-2 mr-2" href="{{ route('create-vendor') }}">Create</a>
+            <a class="btn btn-primary mb-2 mr-2" href="{{ route('create-customer') }}">Create</a>
         </div>
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Vendors DataTable</h3>
+                    <h3 class="card-title">Customers DataTable</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -24,18 +24,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($vendors as $idx => $row)
+                            @foreach ($customers as $idx => $row)
                                 <tr>
                                     <td>{{ $idx + 1 }}</td>
-                                    <td>{{ $row->name }}</td>
-                                    <td>{{ $row->email }}</td>
-                                    <td>{{ $row->mobile }}</td>
-                                    <td>{{ $row->address }}</td>
+                                    <td>{{ $row->customerName }}</td>
+                                    <td>{{ $row->customerEmail }}</td>
+                                    <td>{{ $row->customerMobile }}</td>
+                                    <td>{{ $row->customerAddress }}</td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ route('edit-vendor', $row->id) }}">
+                                        <a class="btn btn-success" href="{{ route('edit-customer', $row->id) }}">
                                             <i class="fas fa-pen"></i>
                                         </a>
-                                        <a class="btn btn-danger" href="{{ route('delete-vendor', $row->id) }}" id="delete">
+                                        <a class="btn btn-danger" href="{{ route('delete-customer', $row->id) }}" id="delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

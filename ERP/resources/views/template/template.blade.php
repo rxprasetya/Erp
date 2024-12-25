@@ -128,9 +128,9 @@
                             </a>
                         </li>
                         <li
-                            class="nav-item {{ request()->routeIs('bom', 'create-bom', 'edit-bom', 'preview-bom') ? 'menu-is-opening menu-open' : '' }}">
+                            class="nav-item {{ request()->routeIs('bom', 'create-bom', 'edit-bom', 'preview-bom', 'production', 'create-production', 'edit-production', 'preview-production') ? 'menu-is-opening menu-open' : '' }}">
                             <a href=""
-                                class="nav-link {{ request()->routeIs('bom', 'create-bom', 'edit-bom', 'preview-bom') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('bom', 'create-bom', 'edit-bom', 'preview-bom', 'production', 'create-production', 'edit-production', 'preview-production') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-building"></i>
                                 <p>
                                     Manufacturing
@@ -146,14 +146,16 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('production') }}" class="nav-link {{ request()->routeIs('production', 'create-production', 'edit-production', 'preview-production') ? 'active' : '' }}">
+                                    <a href="{{ route('production') }}"
+                                        class="nav-link {{ request()->routeIs('production', 'create-production', 'edit-production', 'preview-production') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Production</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('vendor', 'create-vendor', 'edit-vendor', 'rfq', 'create-rfq', 'edit-rfq', 'preview-rfq') ? 'menu-is-opening menu-open' : '' }}">
+                        <li
+                            class="nav-item {{ request()->routeIs('vendor', 'create-vendor', 'edit-vendor', 'rfq', 'create-rfq', 'edit-rfq', 'preview-rfq') ? 'menu-is-opening menu-open' : '' }}">
                             <a href=""
                                 class="nav-link {{ request()->routeIs('vendor', 'create-vendor', 'edit-vendor', 'rfq', 'create-rfq', 'edit-rfq', 'preview-rfq') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-cart-plus"></i>
@@ -173,6 +175,32 @@
                                 <li class="nav-item">
                                     <a href="{{ route('rfq') }}"
                                         class="nav-link {{ request()->routeIs('rfq', 'create-rfq', 'edit-rfq', 'preview-rfq') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Request For Quotation</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li
+                            class="nav-item {{ request()->routeIs('customer', 'create-customer', 'edit-customer', 'rfq-sales', 'create-rfq-sales', 'edit-rfq-sales', 'preview-rfq-sales') ? 'menu-is-opening menu-open' : '' }}">
+                            <a href=""
+                                class="nav-link {{ request()->routeIs('customer', 'create-customer', 'edit-customer', 'rfq-sales', 'create-rfq-sales', 'edit-rfq-sales', 'preview-rfq-sales') ? 'active' : '' }}">
+                                <i class="nav-icon fa fa-cart-arrow-down"></i>
+                                <p>
+                                    Sale
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('customer') }}"
+                                        class="nav-link {{ request()->routeIs('customer', 'create-customer', 'edit-customer') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Customer</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('rfq-sales') }}" class="nav-link {{ request()->routeIs('rfq-sales', 'create-rfq-sales', 'edit-rfq-sales', 'preview-rfq-sales') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Request For Quotation</p>
                                     </a>
@@ -235,7 +263,7 @@
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-    
+
 
     <!-- Dynamic Form -->
     <script src="{{ asset('assets/js/dynamic-form.js') }}"></script>
