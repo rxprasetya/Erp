@@ -26,7 +26,7 @@
                         <p>Products</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="ion ion-coffee"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -40,7 +40,7 @@
                         <p>Materials</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-android-boat"></i>
+                        <i class="ion ion-social-buffer"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -54,7 +54,7 @@
                         <p class="text-white">Purchases</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-android-train"></i>
+                        <i class="ion ion-android-cart"></i>
                     </div>
                     <a href="" class="small-box-footer"><span class="text-white">More info
                             <i class="fas fa-arrow-circle-right"></i></span></a>
@@ -69,7 +69,7 @@
                         <p>Sales</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-android-plane"></i>
+                        <i class="ion ion-android-cart"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>

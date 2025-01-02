@@ -74,7 +74,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label>Material</label>
-                                        <select name="materialID[]" class="form-control materialID">
+                                        <select name="materialID[]" id="materialID" class="form-control materialID">
                                             <option value="" hidden>-- Select Material --</option>
                                             @foreach ($materials as $row)
                                                 <option data-unit="{{ $row->unit }}" value="{{ $row->id }}">
@@ -91,7 +91,7 @@
                                     <div class="col-sm-2">
                                         <label>Qty</label>
                                         <div class="input-group">
-                                            <input type="number" name="qtyOrder[]" class="form-control qtyOrder"
+                                            <input type="number" id="qtyOrder" name="qtyOrder[]" class="form-control qtyOrder"
                                                 placeholder="0">
                                             <span class="input-group-text unitText">-</span>
                                         </div>
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <label>Price</label>
-                                        <input type="number" name="priceOrder[]" class="form-control priceOrder"
+                                        <input type="number" id="priceOrder" name="priceOrder[]" class="form-control priceOrder"
                                             placeholder="0">
                                         @error('priceOrder')
                                             <div class="mt-1">
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <label>Total</label>
-                                        <input type="number" name="totalOrder[]" class="form-control totalOrder"
+                                        <input type="number" id="totalOrder" name="totalOrder[]" class="form-control totalOrder"
                                             placeholder="0" readonly>
                                         @error('totalOrder')
                                             <div class="mt-1">

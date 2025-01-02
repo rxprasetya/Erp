@@ -199,15 +199,15 @@ class ProductionsController extends Controller
             $qtyProduction = $request->qtyProduction;
 
             if ($production && $material) {
-                $production->update([
-                    'productionStatus' => 'Done',
-                    'updated_at' => now(),
-                ]);
                 $product->update([
                     'productStock'=> $request->qtyProduction,
                 ]);
                 $material->update([
                     'materialStock' => $materialStock - $qtyMaterial*$qtyProduction,
+                ]);
+                $production->update([
+                    'productionStatus' => 'Done',
+                    'updated_at' => now(),
                 ]);
             }
         }

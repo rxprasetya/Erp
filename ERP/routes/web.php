@@ -81,6 +81,8 @@ Route::post('/rfq/validate-rfq', [RfqsController::class, 'validated'])->name('va
 
 Route::post('/rfq/confirm-rfq', [RfqsController::class, 'confirmed'])->name('confirm-rfq');
 
+Route::get('/rfq/get-cost', [RfqsController::class, 'getCost'])->name('get-cost');
+
 
 Route::get('/bom', [BomsController::class, 'index'])->name('bom');
 
@@ -150,3 +152,5 @@ Route::get('/rfq-sales/delete-rfq-sales', [RfqSalesController::class, 'delete'])
 Route::post('/rfq-sales/deliver-rfq-sales', [RfqSalesController::class, 'delivered'])->name('deliver-rfq-sales');
 
 Route::post('/rfq-sales/confirm-rfq-sales', [RfqSalesController::class, 'confirmed'])->name('confirm-rfq-sales');
+
+Route::get('/rfq-sales/get-price', [RfqSalesController::class, 'getPrice'])->name('get-price');

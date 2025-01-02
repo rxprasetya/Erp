@@ -42,7 +42,8 @@
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a class="btn btn-success"
-                                            href="production/update-production?productionCode={{ $row->productionCode }}" {{ $row->productionStatus != 'Request' ? 'hidden' : '' }}>
+                                            href="production/update-production?productionCode={{ $row->productionCode }}"
+                                            {{ $row->productionStatus != 'Request' ? 'hidden' : '' }}>
                                             <i class="fas fa-pen"></i>
                                         </a>
                                         <a class="btn btn-danger"

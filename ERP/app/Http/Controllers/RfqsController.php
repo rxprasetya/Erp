@@ -220,4 +220,14 @@ class RfqsController extends Controller
         ->route('rfq')
         ->with('success', 'Successfully confirmed request for quotation');
     }
+
+    public function getCost(Request $request)
+    {
+        # code...
+        $materialID = $request->input('materialID');
+
+        $materialCost = Materials::where('id', $materialID)->first()->materialCost;
+
+        return response()->json(compact('materialCost'));
+    }
 }

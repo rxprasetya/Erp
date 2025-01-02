@@ -100,7 +100,7 @@
                                 <label for="toConsume">To Consume</label>
                                 <input class="form-control" type="number" name="toConsume[]" readonly>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 res" {{ request()->routeIs('create-production') || request()->routeIs('edit-production') || request()->routeIs('preview-production') && $production->productionStatus == 'Request' ? 'hidden' : ''}}>
                                 <label for="reserved">Reserved</label>
                                 <input class="form-control" type="number" name="reserved[]" readonly>
                             </div>

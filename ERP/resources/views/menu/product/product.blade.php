@@ -28,8 +28,8 @@
                                 <td>{{ $idx+1 }}</td>
                                 <td>[{{ $row->productCode  }}] {{ $row->productName }}</td>
                                 <td>{{ $row->productStock }}</td>
-                                <td>
-                                    <img class="img-fluid" src="{{ $row->productImage }}" alt="{{ $row->productName }}.jpg" width="30" />
+                                <td class="text-center">
+                                    <img class="img-fluid" src="{{ $row->productImage }}" alt="{{ $row->productName }}.jpg" width="128" />
                                 </td>
                                 <td>
                                     <a class="btn btn-success" href="{{ route('edit-product', $row->id) }}">

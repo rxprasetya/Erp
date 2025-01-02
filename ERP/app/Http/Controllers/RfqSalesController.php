@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Boms;
 use App\Models\Products;
 use App\Models\RfqSales;
 use App\Models\Customers;
@@ -219,5 +220,17 @@ class RfqSalesController extends Controller
         return redirect()
         ->route('rfq-sales')
         ->with('success', 'Successfully confirmed request for quotation sale');
+    }
+
+    public function getPrice(Request $request)
+    {
+        # code...
+        $productID = $request->input('productID');
+
+        $productPrice = Boms::selectRaw('SUM(unitPrice) as price')
+                    ->where('productID', $productID)
+                    ->first();
+
+        return response()->json(compact('productPrice'));
     }
 }
